@@ -44,8 +44,10 @@ Este repositorio sigue un flujo de trabajo sencillo pero profesional para evitar
     ```bash
     git branch -d feature/nombre-de-la-funcion
     git push origin --delete feature/nombre-de-la-funcion
-    
-🚀 Subir a producción (pasar develop a main)
+
+---
+
+## 🚀 Subir a producción (pasar develop a main)
 
 1. Cambiar a main:
 
@@ -58,8 +60,10 @@ Este repositorio sigue un flujo de trabajo sencillo pero profesional para evitar
     ```bash
     git merge develop
     git push origin main
+
+---
     
-🐞 Arreglos urgentes en producción (hotfix)
+## 🐞 Arreglos urgentes en producción (hotfix)
 
 1. Crear una rama desde main:
 
@@ -80,10 +84,12 @@ Este repositorio sigue un flujo de trabajo sencillo pero profesional para evitar
     git checkout develop
     git merge hotfix/fix-nombre
     git push origin develop
-    
-🧠 Comandos clave explicados
 
-## Comando	| Qué hace
+---
+
+## 🧠 Comandos clave explicados
+
+ Comando	| Qué hace
 
       git checkout <rama>	Cambia a la rama indicada.
       git pull origin <rama>	Trae los últimos cambios de GitHub y los mezcla con los tuyos.
@@ -95,23 +101,25 @@ Este repositorio sigue un flujo de trabajo sencillo pero profesional para evitar
 
 ## ✅ Buenas prácticas
 
-* Nunca trabajes directo en main.
+- Nunca trabajes directo en main.
 
-* Siempre saca ramas desde develop.
+- Siempre saca ramas desde develop.
 
-* Usa nombres claros: feature/registro, hotfix/pago-error, etc.
+- Usa nombres claros: feature/registro, hotfix/pago-error, etc.
 
-* Haz pull antes de hacer push.
+- Haz pull antes de hacer push.
 
-### ℹ️ ¿Qué hace git pull?
+---
+
+## ℹ️ ¿Qué hace git pull?
 
 1. El comando:
 
       ```bash
       git pull origin <rama>
       
-# 💡 Traducción simple:
-Descarga los cambios más recientes del repositorio remoto (GitHub) y los mezcla con tu copia local.
+### 💡 Traducción simple:
+- Descarga los cambios más recientes del repositorio remoto (GitHub) y los mezcla con tu copia local.
 
 2. ¿Qué pasa detrás?
    
@@ -129,7 +137,7 @@ Descarga los cambios más recientes del repositorio remoto (GitHub) y los mezcla
       
 → Te asegura tener lo más actualizado del repositorio antes de trabajar.
 
-
+---
 
 # 🔧 Estructura de ramas recomendada
 1. 
