@@ -111,6 +111,160 @@ Este repositorio sigue un flujo de trabajo sencillo pero profesional para evitar
 
 ---
 
+---
+
+# ESTRUCTURAR RAMAS
+
+## 🔧 Estructura de ramas recomendada
+1. 
+      ```bash
+      main        ← Rama estable, solo se sube lo que ya está probado.
+      develop     ← Rama de desarrollo general, base para nuevas funciones.
+      feature/*   ← Ramas para cada funcionalidad nueva.
+      hotfix/*    ← Ramas para arreglos rápidos a producción.
+
+## 🛠️ Configuración inicial (solo una vez)
+2. Estás en main, creas develop a partir de ahí:
+
+      ```bash
+      git checkout -b develop
+      git push -u origin develop
+      
+      
+A partir de ahora, todo el desarrollo nuevo sale desde develop.
+
+## 🚀 Agregar una nueva funcionalidad (feature)
+
+3. Cuando quieras trabajar en algo nuevo (por ejemplo, login):
+
+      ```bash
+      git checkout develop
+      git pull origin develop  # Asegúrate de estar actualizado
+      git checkout -b feature/login
+      
+## Haz tus cambios, commits, etc.
+
+4. Cuando termines:
+
+      ```bash
+      git checkout develop
+      git merge feature/login
+      git push origin develop
+      
+5. Opcional: eliminar la rama local y remota de feature
+
+      ```bash
+      git branch -d feature/login
+      git push origin --delete feature/login
+      
+## 🧪 Pasar a producción (main)
+
+6. Cuando tu develop ya tiene funcionalidades probadas y estables:
+
+      ```bash
+      git checkout main
+      git pull origin main
+      git merge develop
+      git push origin main
+      
+## 🐞 ¿Algo se rompió en producción? Usa hotfix
+
+7. Si necesitas arreglar algo rápido en producción:
+         
+      ```bash
+      git checkout main
+      git pull origin main
+      git checkout -b hotfix/fix-login
+      
+8. Arreglas el bug, haces commit, y luego:
+
+      ```bash
+      git checkout main
+      git merge hotfix/fix-login
+      git push origin main
+      
+9. Y también lo pasas a develop:
+
+      ```bash
+      git checkout develop
+      git merge hotfix/fix-login
+      git push origin develop
+      
+     
+## 📌 Tips finales
+- Usa nombres claros para ramas: feature/login, hotfix/crash, feature/producto-v2
+
+- Nunca trabajes directamente en main
+
+- Siempre parte desde develop para nuevas funciones
+
+- Usa pull antes de hacer push para evitar conflictos
+
+---
+
+---
+
+# DESPUES DE CREAR LA FEATURE/LOGIN
+
+## 🔨 ¿Cómo seguir trabajando en feature/login?
+1. Hacé los cambios que quieras en tu proyecto (modificar archivos, agregar nuevas funciones, etc.).
+2. Una vez que termines algo que querés guardar:
+
+      ```bash
+      git add .
+
+(o podés agregar archivos específicos con git add archivo.js)
+
+3. Después hacés un commit con un mensaje claro:
+
+      ```bash
+      git commit -m "Agrega formulario de login con validación"
+
+5. Y si querés subir tu rama con los cambios a GitHub:
+
+      ```bash
+      git push origin feature/login
+      
+## 🔄 ¿Cómo volver atrás sin romper nada?
+Depende de qué tanto avanzaste:
+
+1. ❌ Aún no hiciste commit y querés descartar cambios:
+
+
+      ```bash
+      git restore .
+
+2. 🔁 Ya hiciste commit pero no hiciste push:
+
+      ```bash
+      git reset --soft HEAD~1
+      
+(o --hard si querés borrar los cambios también, pero cuidado, eso no se puede deshacer fácilmente).
+
+3. 🕐 Volver a como estaba develop:
+Si querés descartar todo lo que hiciste y volver a como estaba develop, podés hacer esto:
+
+      ```bash
+      git checkout develop
+      git branch -D feature/login
+
+4. Y si necesitás crear la rama de nuevo:
+
+      ```bash
+      git checkout -b feature/login
+
+5. 💡 Tip Pro:
+Para ver el historial de commits (como un árbol), podés instalar un plugin o usar este comando:
+
+
+      ```bash
+      git log --oneline --graph --all --decorate
+
+
+---
+
+---
+
 ## ℹ️ ¿Qué hace git pull?
 
 1. El comando:
@@ -139,94 +293,9 @@ Este repositorio sigue un flujo de trabajo sencillo pero profesional para evitar
 
 ---
 
-# 🔧 Estructura de ramas recomendada
-1. 
-      ```bash
-      main        ← Rama estable, solo se sube lo que ya está probado.
-      develop     ← Rama de desarrollo general, base para nuevas funciones.
-      feature/*   ← Ramas para cada funcionalidad nueva.
-      hotfix/*    ← Ramas para arreglos rápidos a producción.
-
-## 🛠️ Configuración inicial (solo una vez)
-1. Estás en main, creas develop a partir de ahí:
-
-      ```bash
-      git checkout -b develop
-      git push -u origin develop
-      
-      
-2. A partir de ahora, todo el desarrollo nuevo sale desde develop.
-
-## 🚀 Agregar una nueva funcionalidad (feature)
-
-1. Cuando quieras trabajar en algo nuevo (por ejemplo, login):
-
-      ```bash
-      git checkout develop
-      git pull origin develop  # Asegúrate de estar actualizado
-      git checkout -b feature/login
-      
-Haz tus cambios, commits, etc.
-
-2. Cuando termines:
-
-      ```bash
-      git checkout develop
-      git merge feature/login
-      git push origin develop
-      
-3. Opcional: eliminar la rama local y remota de feature
-
-      ```bash
-      git branch -d feature/login
-      git push origin --delete feature/login
-      
-🧪 Pasar a producción (main)
-
-4. Cuando tu develop ya tiene funcionalidades probadas y estables:
-
-      ```bash
-      git checkout main
-      git pull origin main
-      git merge develop
-      git push origin main
-      
-## 🐞 ¿Algo se rompió en producción? Usa hotfix
-
-1. Si necesitas arreglar algo rápido en producción:
-         
-      ```bash
-      git checkout main
-      git pull origin main
-      git checkout -b hotfix/fix-login
-      
-2. Arreglas el bug, haces commit, y luego:
-
-      ```bash
-      git checkout main
-      git merge hotfix/fix-login
-      git push origin main
-      
-3. Y también lo pasas a develop:
-
-      ```bash
-      git checkout develop
-      git merge hotfix/fix-login
-      git push origin develop
-      
- ---     
-## 📌 Tips finales
-- Usa nombres claros para ramas: feature/login, hotfix/crash, feature/producto-v2
-
-- Nunca trabajes directamente en main
-
-- Siempre parte desde develop para nuevas funciones
-
-- Usa pull antes de hacer push para evitar conflictos
-
 ---
 
-# Comandos de Git
+# COMANDOS DE GIT
 
 ## 🔧 Configuración inicial
 1. 
@@ -292,7 +361,4 @@ Haz tus cambios, commits, etc.
       ```bash
       git rm <archivo>             # Elimina un archivo del repo y del disco
       git clean -fd                # Elimina archivos/directorios no versionados
-
----
-
 
