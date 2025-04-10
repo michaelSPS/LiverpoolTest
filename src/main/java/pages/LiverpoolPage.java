@@ -52,6 +52,7 @@ public class LiverpoolPage extends BasePage {
         return false;
     }
 
+
 //    public void verifyPageTitle(String title) throws IOException {
 //        String actualTitle = driver.getTitle();
 //        Assert.assertEquals(actualTitle, title);

@@ -51,11 +51,6 @@ public class LiverpoolSteps {
         liverpool.clickElement(locator);
     }
 
-    @And("^(?:I|The Client) clicks? on the (.+) add warranty$")
-    public void addWarranty(String locator) throws IOException {
-        liverpool.clickElement(locator);
-    }
-
     @And("^(?:I|The Client) goes? to see the (.+)$")
     public void shoppingCart(String locator) throws IOException {
         liverpool.clickElement(locator);

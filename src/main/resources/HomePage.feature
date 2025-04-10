@@ -11,8 +11,7 @@ Feature: TC 01 Search for products on Liverpool Page
     And The Client selects a console in the results listed
     And The Client selects a ps5 in the results
     Then The Client clicks on button add to cart
-#    And The Client clicks on the pop-up-button add warranty
-#    And The Client goes to see the shopping-cart
+    And The Client goes to see the shopping-cart
 #    When The Client looks at the price
 #    Then The Client validate that the price of the product is correct
 
