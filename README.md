@@ -83,9 +83,8 @@ Este repositorio sigue un flujo de trabajo sencillo pero profesional para evitar
     
 🧠 Comandos clave explicados
 
-Comando	| Qué hace
+## Comando	| Qué hace
 
-      ```bash
       git checkout <rama>	Cambia a la rama indicada.
       git pull origin <rama>	Trae los últimos cambios de GitHub y los mezcla con los tuyos.
       git push origin <rama>	Sube tus cambios al repositorio remoto.
@@ -94,7 +93,7 @@ Comando	| Qué hace
       git push origin --delete <rama>	Borra una rama remota en GitHub.
 
 
-✅ Buenas prácticas
+## ✅ Buenas prácticas
 
 * Nunca trabajes directo en main.
 
@@ -104,14 +103,14 @@ Comando	| Qué hace
 
 * Haz pull antes de hacer push.
 
-## ℹ️ ¿Qué hace git pull?
+### ℹ️ ¿Qué hace git pull?
 
 1. El comando:
 
       ```bash
       git pull origin <rama>
       
-💡 Traducción simple:
+# 💡 Traducción simple:
 Descarga los cambios más recientes del repositorio remoto (GitHub) y los mezcla con tu copia local.
 
 2. ¿Qué pasa detrás?
@@ -122,7 +121,7 @@ Descarga los cambios más recientes del repositorio remoto (GitHub) y los mezcla
 
 - `git merge`: integra esos cambios en tu rama local.
 
-Ejemplo:
+3. Ejemplo:
 
       ```bash
       git checkout develop
