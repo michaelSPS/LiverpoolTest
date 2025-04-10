@@ -235,27 +235,27 @@ Haz tus cambios, commits, etc.
       git config --global user.email "tu@email.com"
 
 ## 📦 Inicializar o clonar un repo
- 1.     
+ 2.     
       ```bash
       git init                      # Inicializa un nuevo repositorio
       git clone <url>              # Clona un repositorio remoto
 
 ## 📄 Estado y cambios
-1. 
+3. 
       ```bash
       git status                   # Muestra los archivos modificados, staged, etc.
       git diff                     # Muestra los cambios no staged
       git diff --staged            # Muestra los cambios staged
 
 ## ➕ Agregar y confirmar cambios
-1. 
+4. 
       ```bash
       git add <archivo>            # Agrega archivo al staging area
       git add .                    # Agrega todos los archivos modificados
       git commit -m "Mensaje"      # Confirma cambios
 
 ## 🔁 Trabajo con ramas
-
+5. 
       ```bash
       git branch                   # Lista las ramas
       git branch <nombre>          # Crea una nueva rama
@@ -265,7 +265,7 @@ Haz tus cambios, commits, etc.
       git branch -d <rama>         # Borra una rama local
 
 ## ⬆️⬇️ Sincronización con repositorio remoto
-1. 
+6. 
       ```bash
       git remote -v                # Muestra los repos remotos configurados
       git push origin <rama>       # Sube cambios al remoto
@@ -273,14 +273,14 @@ Haz tus cambios, commits, etc.
       git fetch                    # Trae cambios del remoto pero no los fusiona
 
 ## 🕵️‍♂️ Historial y revisión
-1. 
+7. 
       ```bash
       git log                      # Muestra el historial de commits
       git log --oneline            # Historial compacto
       git show <commit>            # Muestra detalles de un commit
 
 ## 🔄 Revertir o rehacer cosas
-1. 
+8. 
       ```bash
       git checkout -- <archivo>    # Revierte cambios en un archivo (no commiteados)
       git reset HEAD <archivo>     # Saca un archivo del staging
@@ -288,9 +288,11 @@ Haz tus cambios, commits, etc.
       git revert <commit>          # Crea un commit que deshace uno anterior
 
 ## 💣 Borrar con cuidado
-1. 
+9. 
       ```bash
       git rm <archivo>             # Elimina un archivo del repo y del disco
       git clean -fd                # Elimina archivos/directorios no versionados
+
+---
 
 
