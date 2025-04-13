@@ -17,7 +17,7 @@ import java.util.Properties;
 
 public class BasePage {
 
-    protected static WebDriver driver;
+    public static WebDriver driver;
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
     static {

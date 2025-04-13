@@ -4,9 +4,13 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
+import pages.CartPage;
 import pages.LiverpoolPage;
 
 import java.io.IOException;
+
+import static pages.BasePage.driver;
 
 public class LiverpoolSteps {
 
@@ -17,7 +21,7 @@ public class LiverpoolSteps {
         liverpool.navigateToLiverpool(url);
     }
 
-    @And("^(?:I|The Client) write (.+) in the (.+)$")
+    @When("^(?:I|The Client) write (.+) in the (.+)$")
     public void writeText(String keysToSend, String locator) throws IOException {
         liverpool.write(keysToSend, locator);
     }
@@ -46,39 +50,26 @@ public class LiverpoolSteps {
         liverpool.clickElement(locator);
     }
 
-    @Then("^(?:I|The Client) clicks? on (.+) add to cart$")
+    @And("^(?:I|The Client) clicks? on (.+) add to cart$")
     public void clickAddCart(String locator) throws IOException {
+        liverpool.clickElement(locator);
+    }
+
+    @And("^(?:I|The Client) clicks? add (.+)$")
+    public void addWarrentie(String locator) throws IOException {
         liverpool.clickElement(locator);
     }
 
     @And("^(?:I|The Client) goes? to see the (.+)$")
     public void shoppingCart(String locator) throws IOException {
-        liverpool.clickElement(locator);
+        liverpool.clickPupUpWarrentieButton(locator);
     }
 
-//    @When("^(?:I|The Client) looks? at the (.+)$")
-//    public void lookAtThePrice(String locator) throws IOException {
-//        liverpool.getProductPrice(locator);
-//    }
-//
-//    @Then("^(?:I|The Client) validate that the (.+) of the product is correct")
-//    public void validatePrice() throws IOException {
-//    }
-//
-//    @Then("^(?:I|The Client) validate that the title of the page is (.+)$")
-//    public void validateTitle(String title) throws IOException {
-//        liverpool.verifyPageTitle(title);
-//
-//    }
-
-//    @When("^El usuario hace click en el botón de (.+)$")
-//    public void clickButton(String locator) throws IOException, InterruptedException {
-//        liverpool.clickElement(locator);
-//    }
-//
-//    @Then("^El usuario es dirigido a la página con el título de (.+)$")
-//    public void verifyAccountsTitle(String title) throws IOException {
-//        liverpool.verifyPageTitle(title);
-//    }
+    @Then("^(?:I|The Client) must be able to see the playstation 5 on the shopping cart")
+    public void verifyProductInShoppingCart() throws IOException {
+        CartPage cartPage = new CartPage(driver);
+        boolean isProductPresent = cartPage.verifyProductInCart("PS5");
+        Assert.assertTrue("El producto 'PlayStation 5' no se encontró en el carrito", isProductPresent);
+    }
 
 }

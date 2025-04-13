@@ -52,6 +52,12 @@ public class LiverpoolPage extends BasePage {
         return false;
     }
 
+    public void clickPupUpWarrentieButton(String locator) throws IOException {
+        String pupUpButtonXpath = locatorFileLoad(locator);
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(pupUpButtonXpath)));
+        Find(pupUpButtonXpath).click();
+    }
+
 
 //    public void verifyPageTitle(String title) throws IOException {
 //        String actualTitle = driver.getTitle();
