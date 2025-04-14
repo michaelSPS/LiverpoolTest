@@ -362,3 +362,39 @@ Para ver el historial de commits (como un árbol), podés instalar un plugin o u
       git rm <archivo>             # Elimina un archivo del repo y del disco
       git clean -fd                # Elimina archivos/directorios no versionados
 
+
+---
+
+---
+
+# FORZAR PUSH
+
+## 🧨 Opción 1: Forzar el push (sobrescribes el remoto)
+1. ⚠️ Esta opción elimina los cambios que están en el remoto (los sobrescribe con los tuyos). Solo hazlo si estás seguro de que tus cambios locales son los correctos y quieres ignorar lo que hay en remoto.
+
+      ```bash
+      git push --force origin feature/login
+      
+✅ Esta opción es rápida y te deja el repositorio remoto exactamente como está tu versión local.
+
+## 🛠️ Opción 2: Hacer un merge y conservar todo
+2. Si quieres conservar tus cambios locales pero también integrar lo del remoto, entonces puedes hacer un merge en vez de rebase:
+
+      ```bash
+      git pull --no-rebase origin feature/login
+      
+3. Esto hará un merge entre lo remoto y lo local (y puede generar conflictos como antes, pero esta vez más fácil de manejar). Luego:
+
+      ```bash
+      git push origin feature/login
+      
+## 🔐 Recomendación
+- Si estás trabajando tú solo en el branch, puedes usar --force sin miedo.
+
+- Si más personas están trabajando en el branch, mejor haz el merge y resuelve cualquier conflicto.
+
+
+---
+
+---
+
