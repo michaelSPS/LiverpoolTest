@@ -6,16 +6,22 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.CartPage;
 import pages.LiverpoolPage;
 
 import java.io.IOException;
+import java.time.Duration;
 
 import static pages.BasePage.driver;
 
 public class LiverpoolSteps {
 
-    LiverpoolPage liverpool = new LiverpoolPage();
+    LiverpoolPage liverpool = new LiverpoolPage(driver);
 
     @Given("^(?:I|The Client) goes to the (.+)$")
     public void iNavigateToLiverpoolHome(String url) throws IOException {
@@ -94,14 +100,54 @@ public class LiverpoolSteps {
 
     @When("^(?:I|The Client) filters the results by size: 55 inches, price: > 10,000, brand: sony")
     public void filterResultsByMultipleOptions() throws IOException {
-        liverpool.scrollToElementByKey("sizeOption55");
-        liverpool.clickElement("sizeOption55");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-        liverpool.scrollToElementByKey("priceOption10000");
-        liverpool.clickElement("priceOption10000");
+        liverpool.scrollBy(1000);
+        liverpool.sleep(1000);
 
-        liverpool.scrollToElementByKey("brandSony");
-        liverpool.clickElement("brandSony");
+        // ---  FILTRO DE PRECIO ----
+        System.out.println("DEBUG: Haciendo scroll hacia la sección de Precios");
+        liverpool.scrollToElementByText("Precios");
+        liverpool.sleep(1000);
+
+        System.out.println("DEBUG: Forzando visibilidad del filtro 'Mas de $10,000'");
+        liverpool.applyPriceFilterGreaterThan10000();
+        liverpool.sleep(1000);
+
+        // ---  FILTRO DE MARCA ----
+
+        liverpool.scrollBy(1000);
+        System.out.println("DEBUG: Haciendo scroll hacia la sección de Marcas");
+        liverpool.scrollToElementByText("Marcas");
+        liverpool.sleep(800);
+
+        System.out.println("DEBUG: Aplicando filtro de marca - Sony");
+
+        liverpool.scrollToElementByText("Marcas");
+        liverpool.sleep(800);
+        liverpool.scrollToElementByKey("brandSearchInput");
+        liverpool.sleep(500);
+        liverpool.writePlainText("sony", "brandSearchInput");
+        liverpool.sleep(800);
+        liverpool.applyBrandFilterSony();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".product-tile")));
+
+        System.out.println("DEBUG: Filtro de marcas aplicado correctamente");
+
+        // ---  FILTRO DE TAMAÑO ----
+
+        liverpool.scrollBy(1000);
+        System.out.println("DEBUG: Haciendo scroll hacia la sección de Tamaño");
+        liverpool.scrollToElementByText("Tamaño");
+        liverpool.sleep(800);
+
+        System.out.println("DEBUG: Aplicando filtro de tamaño - 55 pulgadas");
+
+        liverpool.applySizeFilter55Inches();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".product-tile")));
+        System.out.println("DEBUG: Filtro de tamaño aplicado correctamente");
+
+        System.out.println("✅ Todos los filtros aplicados - Sony, > $10,000, 55 pulgadas");
     }
 
 }

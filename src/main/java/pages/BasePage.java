@@ -38,17 +38,6 @@ public class BasePage {
         driver.quit();
     }
 
-    public void scrollToElementByKey(String locator) throws IOException {
-        String xpath = locatorFileLoad(locator);
-        scrollToElement(xpath);
-    }
-
-    public void scrollToElement(String xpath) {
-        JavascriptExecutor j = (JavascriptExecutor) driver;
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
-        j.executeScript("arguments[0].scrollIntoView(true);", element);
-    }
-
     public String configFileLoad(String data) throws IOException {
         FileReader fr = new FileReader("/Users/mikeynadia/Documents/PROGRAMACION/UDEMY/IdeaProjects/LiverpoolApexTest/src/main/resources/configfiles/config.properties");
         Properties pr = new Properties();
@@ -85,6 +74,12 @@ public class BasePage {
         Find(element).click();
     }
 
+    public void clickElementByJS(String xpath) {
+        WebElement element = driver.findElement(By.xpath(xpath));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+    }
+
+
     public void write(String keysToSend, String locator) throws IOException {
         String element = locatorFileLoad(locator);
         scrollToElement(element);
@@ -92,11 +87,156 @@ public class BasePage {
         Find(element).sendKeys(text);
     }
 
+    public void writePlainText(String text, String locatorKey) throws IOException {
+        String xpath = locatorFileLoad(locatorKey);
+        scrollToElement(xpath);
+        Find(xpath).sendKeys(text);
+    }
+
+    public void scrollToElementByKey(String locator) throws IOException {
+        String xpath = locatorFileLoad(locator);
+        scrollToElement(xpath);
+    }
+
+    public void scrollToElement(String xpath) {
+        JavascriptExecutor j = (JavascriptExecutor) driver;
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+        j.executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+
+    public void scrollBy(int pixels) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0," + pixels + ")");
+        sleep(1000);
+    }
+
+    public void scrollToElementByText(String visibleText) {
+        By labelLocator = By.xpath("//label[normalize-space()='" + visibleText + "']");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(labelLocator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+
+
+    public void sleep(int milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
     public void verifyElementIsVisible(String locator) throws IOException {
         String element = locatorFileLoad(locator);
         System.out.println("DEBUG: Buscando elemento con XPath: " + element);
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(element)));
     }
+
+    public void clickCheckbox(String locatorKey) throws IOException {
+        String xpath = locatorFileLoad(locatorKey);
+        WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+
+        if (!checkbox.isSelected()) {
+            checkbox.click();
+        } else {
+            System.out.println("DEBUG: Checkbox '" + locatorKey + "' ya estaba seleccionado.");
+        }
+    }
+
+    public void checkIfCheckboxVisibleAndClick(String locatorKey) throws IOException {
+        String xpath = locatorFileLoad(locatorKey);
+
+        try {
+            WebElement checkbox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+
+            if (!checkbox.isSelected()) {
+                System.out.println("DEBUG: Haciendo clic en el checkbox: " + locatorKey);
+                checkbox.click();
+            } else {
+                System.out.println("DEBUG: El checkbox '" + locatorKey + "' ya está seleccionado.");
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println("DEBUG: No se encontró el checkbox para: " + locatorKey + ". Continuando.");
+        } catch (TimeoutException e) {
+            System.out.println("DEBUG: Timeout esperando la visibilidad del checkbox para: " + locatorKey + ". Continuando.");
+        }
+    }
+
+    public void clickIfLinkVisible(String locatorKey) throws IOException {
+        String xpath = locatorFileLoad(locatorKey);
+        try {
+            WebElement element = driver.findElement(By.xpath(xpath));
+            if (element.isDisplayed()) {
+                System.out.println("DEBUG: Click en 'Ver más' para: " + locatorKey);
+                element.click();
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println("DEBUG: No se encontró 'Ver más' para " + locatorKey + ". Continuando.");
+        }
+    }
+
+    public void applyFilter(String locatorKey) throws IOException {
+        String xpath = locatorFileLoad(locatorKey);
+
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+        scrollToElement(xpath);
+        wait.until(ExpectedConditions.visibilityOf(element));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+
+        if (!element.isSelected()) {
+            element.click();
+        }
+        wait.until(ExpectedConditions.stalenessOf(element));
+        sleep(1000);
+    }
+
+
+    public void waitUntilElementIsVisible(String key) throws IOException {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        String xpath = locatorFileLoad(key);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+    }
+
+    public void waitForPageToReload() {
+        try {
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".loading-spinner")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".product-item")));
+        } catch (TimeoutException e) {
+            System.out.println("DEBUG: Timeout al esperar la carga de la página");
+        }
+    }
+
+
+    public void safeCheckCheckboxWithScroll(String locatorKey) throws IOException {
+        String xpath = locatorFileLoad(locatorKey);
+
+        try {
+            System.out.println("DEBUG: Buscando checkbox con key: " + locatorKey);
+
+            for (int i = 0; i < 3; i++) {
+                scrollBy(500);
+                try {
+                    WebElement checkbox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+
+                    if (!checkbox.isSelected()) {
+                        checkbox.click();
+                        System.out.println("✅ Checkbox marcado: " + locatorKey);
+                    } else {
+                        System.out.println("⚠️ Checkbox ya estaba marcado: " + locatorKey);
+                    }
+                    return;
+                } catch (TimeoutException e) {
+                    System.out.println("⏳ Intento " + (i+1) + ": Checkbox aún no visible...");
+                }
+            }
+            throw new TimeoutException("❌ No se pudo encontrar el checkbox visible tras varios intentos: " + locatorKey);
+
+        } catch (Exception e) {
+            System.out.println("❌ Error al intentar hacer click en el checkbox '" + locatorKey + "': " + e.getMessage());
+            throw e;
+        }
+    }
+
 
 
     public void writePassword(String keysToSend, String locator) throws IOException {
