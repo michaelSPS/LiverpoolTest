@@ -18,7 +18,7 @@ import java.util.Properties;
 public class BasePage {
 
     public static WebDriver driver;
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
     static {
         ChromeOptions chromeOptions = new ChromeOptions();
@@ -38,9 +38,14 @@ public class BasePage {
         driver.quit();
     }
 
-    public void scrollToElement(String el) {
+    public void scrollToElementByKey(String locator) throws IOException {
+        String xpath = locatorFileLoad(locator);
+        scrollToElement(xpath);
+    }
+
+    public void scrollToElement(String xpath) {
         JavascriptExecutor j = (JavascriptExecutor) driver;
-        WebElement element = Find(el);
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
         j.executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
@@ -49,6 +54,9 @@ public class BasePage {
         Properties pr = new Properties();
         pr.load(fr);
         String element = pr.getProperty(data);
+        if (element == null) {
+            throw new IllegalArgumentException("❌ Locator key '" + data + "' not found in locators.properties");
+        }
         return element;
     }
 
@@ -57,6 +65,9 @@ public class BasePage {
         Properties pr = new Properties();
         pr.load(fr);
         String element = pr.getProperty(data);
+        if (element == null) {
+            throw new IllegalArgumentException("❌ Locator key '" + data + "' not found in locators.properties");
+        }
         return element;
     }
 
@@ -79,6 +90,12 @@ public class BasePage {
         scrollToElement(element);
         String text = configFileLoad(keysToSend);
         Find(element).sendKeys(text);
+    }
+
+    public void verifyElementIsVisible(String locator) throws IOException {
+        String element = locatorFileLoad(locator);
+        System.out.println("DEBUG: Buscando elemento con XPath: " + element);
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(element)));
     }
 
 

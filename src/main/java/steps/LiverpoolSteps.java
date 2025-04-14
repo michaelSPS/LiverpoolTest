@@ -1,5 +1,6 @@
 package steps;
 
+import io.cucumber.java.be.I;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -70,6 +71,37 @@ public class LiverpoolSteps {
         CartPage cartPage = new CartPage(driver);
         boolean isProductPresent = cartPage.verifyProductInCart("PS5");
         Assert.assertTrue("El producto 'PlayStation 5' no se encontró en el carrito", isProductPresent);
+    }
+
+    @When("^(?:I|The Client) search for (.+) in the (.+)$")
+    public void searchForSmartTv(String keysToSend, String locator) throws IOException {
+        liverpool.write(keysToSend, locator);
+    }
+
+    @And("^(?:I|The Client) type ENTER on searchbar$")
+    public void typeEnter() throws IOException {
+        liverpool.typeEnterOnSearchBar();
+    }
+
+    @Then("^(?:I|The Client) validate that the Size and Price filters are displayed")
+    public void  validateFiltersDisplayed() throws IOException {
+        liverpool.scrollToElementByKey("sizeFilter");
+        liverpool.verifyElementIsVisible("sizeFilter");
+
+        liverpool.scrollToElementByKey("priceFilter");
+        liverpool.verifyElementIsVisible("priceFilter");
+    }
+
+    @When("^(?:I|The Client) filters the results by size: 55 inches, price: > 10,000, brand: sony")
+    public void filterResultsByMultipleOptions() throws IOException {
+        liverpool.scrollToElementByKey("sizeOption55");
+        liverpool.clickElement("sizeOption55");
+
+        liverpool.scrollToElementByKey("priceOption10000");
+        liverpool.clickElement("priceOption10000");
+
+        liverpool.scrollToElementByKey("brandSony");
+        liverpool.clickElement("brandSony");
     }
 
 }
