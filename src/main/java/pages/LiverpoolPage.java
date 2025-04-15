@@ -58,10 +58,11 @@ public class LiverpoolPage extends BasePage {
         Find(pupUpButtonXpath).click();
     }
 
-    public void applyPriceFilterGreaterThan10000() {
+    public void applyPriceFilterGreaterThan10000() throws IOException {
         System.out.println("DEBUG: Localizando el input del filtro de precio > $10,000");
 
-        WebElement priceInput = driver.findElement(By.id("variants.prices.sortPrice-10000-700000"));
+        String xpath = locatorFileLoad("filter.price.10000plus");
+        WebElement priceInput = driver.findElement(By.xpath(xpath));
         WebElement radioButtonWrapper = priceInput.findElement(By.xpath("./ancestor::div[contains(@class, 'm-radioButton')]"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", radioButtonWrapper);
         sleep(500);
@@ -71,10 +72,11 @@ public class LiverpoolPage extends BasePage {
 
         waitForPageToReload();
     }
-    public void applyBrandFilterSony() {
+    public void applyBrandFilterSony() throws IOException {
         System.out.println("DEBUG: Localizando el checkbox del filtro de marca SONY");
 
-        WebElement brandCheckbox = driver.findElement(By.id("brand-SONY"));
+        String xpath = locatorFileLoad("filter.brand.sony");
+        WebElement brandCheckbox = driver.findElement(By.xpath(xpath));
         WebElement checkboxWrapper = brandCheckbox.findElement(By.xpath("./ancestor::div[contains(@class, 'm-checkbox')]"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", checkboxWrapper);
         sleep(500);
@@ -86,11 +88,12 @@ public class LiverpoolPage extends BasePage {
 
     }
 
-    public void applySizeFilter55Inches() {
+    public void applySizeFilter55Inches() throws IOException {
 
         System.out.println("DEBUG: Localizando el checkbox del filtro de tamaño - 55 pulgadas");
 
-        WebElement sizeCheckbox = driver.findElement(By.id("variants.normalizedSize-55 pulgadas"));
+        String xpath = locatorFileLoad("filter.size.55");
+        WebElement sizeCheckbox = driver.findElement(By.xpath(xpath));
         WebElement checkboxWrapper = sizeCheckbox.findElement(By.xpath("./ancestor::div[contains(@class, 'm-checkbox')]"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", checkboxWrapper);
         sleep(500);
