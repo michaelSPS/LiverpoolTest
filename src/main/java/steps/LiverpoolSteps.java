@@ -87,6 +87,8 @@ public class LiverpoolSteps {
     @And("^(?:I|The Client) type ENTER on searchbar$")
     public void typeEnter() throws IOException {
         liverpool.typeEnterOnSearchBar();
+
+        System.out.println("DEBUG: Haciendo click y redirigiendo a la pagina de Smart-tv");
     }
 
     @Then("^(?:I|The Client) validate that the Size and Price filters are displayed")
@@ -94,8 +96,12 @@ public class LiverpoolSteps {
         liverpool.scrollToElementByKey("sizeFilter");
         liverpool.verifyElementIsVisible("sizeFilter");
 
+        System.out.println("DEBUG: Verificando que aparezca el filtro de Tamaño");
+
         liverpool.scrollToElementByKey("priceFilter");
         liverpool.verifyElementIsVisible("priceFilter");
+
+        System.out.println("DEBUG: Verificando que aparezca el filtro de Precios");
     }
 
     @When("^(?:I|The Client) filters the results by size: 55 inches, price: > 10,000, brand: sony")
@@ -148,7 +154,19 @@ public class LiverpoolSteps {
 
         System.out.println("DEBUG: Filtro de tamaño aplicado correctamente");
 
-        System.out.println("✅ Todos los filtros aplicados - Sony, > $10,000, 55 pulgadas");
+        System.out.println("Todos los filtros aplicados - Sony, > $10,000, 55 pulgadas");
+    }
+
+    @Then("^(?:I|The Client) validate the results count$")
+    public void validateResultCount() throws IOException {
+        liverpool.sleep(1000);
+        int resultCount = liverpool.getProductResultCount();
+
+        if (resultCount > 0) {
+            System.out.println("Se encontraron " + resultCount + " productos tras aplicar los filtros.");
+        } else {
+            throw new AssertionError("No se encontraron productros");
+        }
     }
 
 }

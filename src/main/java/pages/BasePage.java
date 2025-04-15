@@ -209,15 +209,14 @@ public class BasePage {
 
     public void safeCheckCheckboxWithScroll(String locatorKey) throws IOException {
         String xpath = locatorFileLoad(locatorKey);
-
         try {
+
             System.out.println("DEBUG: Buscando checkbox con key: " + locatorKey);
 
             for (int i = 0; i < 3; i++) {
                 scrollBy(500);
                 try {
                     WebElement checkbox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
-
                     if (!checkbox.isSelected()) {
                         checkbox.click();
                         System.out.println("✅ Checkbox marcado: " + locatorKey);
@@ -230,7 +229,6 @@ public class BasePage {
                 }
             }
             throw new TimeoutException("❌ No se pudo encontrar el checkbox visible tras varios intentos: " + locatorKey);
-
         } catch (Exception e) {
             System.out.println("❌ Error al intentar hacer click en el checkbox '" + locatorKey + "': " + e.getMessage());
             throw e;

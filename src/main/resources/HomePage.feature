@@ -19,9 +19,9 @@ Feature: TC 01 Search for products on Liverpool Page
   Scenario: TC2 The user is directed to "Smart TV" results
     When The Client search for smart-tv in the searchbar
     And The Client type ENTER on searchbar
-    Then The Client filters the results by size: 55 inches, price: > 10,000, brand: sony
-#    And The Client filter the results by size price and brand
-#    And The Client validate the results count
+    Then The Client validate that the Size and Price filters are displayed
+    When The Client filters the results by size: 55 inches, price: > 10,000, brand: sony
+    Then The Client validate the results count
 
 
 

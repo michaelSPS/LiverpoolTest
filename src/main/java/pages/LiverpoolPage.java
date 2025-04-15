@@ -3,10 +3,12 @@ package pages;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
@@ -97,6 +99,14 @@ public class LiverpoolPage extends BasePage {
         System.out.println("DEBUG: Click hecho al checkbox de tamaño - 55 pulgadas");
 
         waitForPageToReload();
+    }
+
+    public int getProductResultCount() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//ul[contains(@class, 'm-product__listingPlp')]/li[contains(@class, 'm-product__card')]")));
+        List<WebElement> productResults = driver.findElements(By.xpath("//ul[contains(@class, 'm-product__listingPlp')]/li[contains(@class, 'm-product__card')]"));
+        return productResults.size();
+
     }
 
 //    public void verifyPageTitle(String title) throws IOException {
