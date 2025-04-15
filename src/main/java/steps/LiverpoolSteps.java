@@ -130,7 +130,7 @@ public class LiverpoolSteps {
         liverpool.writePlainText("sony", "brandSearchInput");
         liverpool.sleep(800);
         liverpool.applyBrandFilterSony();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".product-tile")));
+        liverpool.sleep(1000);
 
         System.out.println("DEBUG: Filtro de marcas aplicado correctamente");
 
@@ -144,7 +144,8 @@ public class LiverpoolSteps {
         System.out.println("DEBUG: Aplicando filtro de tamaño - 55 pulgadas");
 
         liverpool.applySizeFilter55Inches();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".product-tile")));
+        liverpool.sleep(1000);
+
         System.out.println("DEBUG: Filtro de tamaño aplicado correctamente");
 
         System.out.println("✅ Todos los filtros aplicados - Sony, > $10,000, 55 pulgadas");

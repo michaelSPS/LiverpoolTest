@@ -64,17 +64,20 @@ public class LiverpoolPage extends BasePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", radioButtonWrapper);
         sleep(500);
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", priceInput);
+
         System.out.println("DEBUG: Clic hecho al input del precio > $10,000");
 
         waitForPageToReload();
     }
     public void applyBrandFilterSony() {
         System.out.println("DEBUG: Localizando el checkbox del filtro de marca SONY");
+
         WebElement brandCheckbox = driver.findElement(By.id("brand-SONY"));
         WebElement checkboxWrapper = brandCheckbox.findElement(By.xpath("./ancestor::div[contains(@class, 'm-checkbox')]"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", checkboxWrapper);
         sleep(500);
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", brandCheckbox);
+
         System.out.println("DEBUG: Clic hecho al checkbox de marca SONY");
 
         waitForPageToReload();
@@ -82,14 +85,15 @@ public class LiverpoolPage extends BasePage {
     }
 
     public void applySizeFilter55Inches() {
+
         System.out.println("DEBUG: Localizando el checkbox del filtro de tamaño - 55 pulgadas");
 
-        WebElement sizeCheckbox = driver.findElement(By.id("size-55 pulgadas"));
+        WebElement sizeCheckbox = driver.findElement(By.id("variants.normalizedSize-55 pulgadas"));
         WebElement checkboxWrapper = sizeCheckbox.findElement(By.xpath("./ancestor::div[contains(@class, 'm-checkbox')]"));
-
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", checkboxWrapper);
         sleep(500);
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", sizeCheckbox);
+
         System.out.println("DEBUG: Click hecho al checkbox de tamaño - 55 pulgadas");
 
         waitForPageToReload();
