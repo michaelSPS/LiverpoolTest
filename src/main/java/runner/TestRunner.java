@@ -10,7 +10,7 @@ import pages.BasePage;
 @CucumberOptions(features = "src/main/resources",
         glue = {"steps"},
         plugin = {"pretty", "html:target/cucumber-reports.html"},
-        tags = "@First")
+        tags = "@Navigation")
 
 
 public class TestRunner {

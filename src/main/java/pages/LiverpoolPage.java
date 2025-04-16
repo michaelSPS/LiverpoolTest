@@ -27,13 +27,19 @@ public class LiverpoolPage extends BasePage {
     }
 
     public void typeEnterOnSearchBar() throws IOException {
+        System.out.println("DEBUG: Typing enter on searchbar");
+
         String searchbarLocator = locatorFileLoad("searchbar");
         WebElement searchbar = driver.findElement(By.xpath(searchbarLocator));
         Actions actions = new Actions(driver);
         actions.sendKeys(searchbar, Keys.ENTER).perform();
+
+        waitForPageToReload();
     }
 
     public boolean verifyPlayStationImages() throws IOException {
+        System.out.println("DEBUG: Verificando resultados de playstation, consolas o playstation 5");
+
         String resultsLocator = locatorFileLoad("searchResults");
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(resultsLocator)));
         List<WebElement> images = driver.findElements(By.xpath(resultsLocator));
@@ -50,7 +56,7 @@ public class LiverpoolPage extends BasePage {
                 }
             }
         }
-        System.out.println("No PlayStation images found.");
+        System.out.println("DEBUG: No PlayStation images found.");
         return false;
     }
 
