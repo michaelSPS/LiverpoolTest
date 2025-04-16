@@ -56,11 +56,13 @@ public class LiverpoolPage extends BasePage {
                 }
             }
         }
-        System.out.println("DEBUG: No PlayStation images found.");
+        System.out.println("DEBUG: No se encontraron imagenes de PlayStation.");
         return false;
     }
 
     public void clickPupUpWarrentieButton(String locator) throws IOException {
+        System.out.println("DEBUG: Haciendo click en el boton de garantía");
+
         String pupUpButtonXpath = locatorFileLoad(locator);
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(pupUpButtonXpath)));
         Find(pupUpButtonXpath).click();

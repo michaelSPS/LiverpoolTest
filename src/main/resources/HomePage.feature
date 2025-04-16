@@ -2,7 +2,7 @@
 Feature: TC 01 Search for products on Liverpool Page
 
   Background:
-    Given The Client goes to the home
+    Given The Client goes to home-page
 @First
   Scenario: TC 1.1 The user is directed to "Play Station" results
     When The Client write playstation in the searchbar

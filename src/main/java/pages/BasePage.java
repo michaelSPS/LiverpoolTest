@@ -68,6 +68,8 @@ public class BasePage {
     public void clickElement(String locator) throws IOException {
         String element = locatorFileLoad(locator);
         Find(element).click();
+
+        System.out.println("DEBUG: Haciendo click en el elmento");
     }
 
 

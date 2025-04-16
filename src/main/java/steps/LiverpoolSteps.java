@@ -18,9 +18,9 @@ public class LiverpoolSteps {
 
     LiverpoolPage liverpool = new LiverpoolPage(driver);
 
-    @Given("^(?:I|The Client) goes to the home$")
-    public void iNavigateToLiverpoolHome() throws IOException {
-        liverpool.navigateToLiverpool();
+    @Given("^(?:I|The Client) goes to (.+)$")
+    public void iNavigateToLiverpoolHome(String configKey) throws IOException {
+        liverpool.navigateToWebPage(configKey);
     }
 
     @When("^(?:I|The Client) write (.+) in the (.+)$")
