@@ -1,15 +1,10 @@
 package steps;
 
-import io.cucumber.java.be.I;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.CartPage;
 import pages.LiverpoolPage;
@@ -23,9 +18,9 @@ public class LiverpoolSteps {
 
     LiverpoolPage liverpool = new LiverpoolPage(driver);
 
-    @Given("^(?:I|The Client) goes to the (.+)$")
-    public void iNavigateToLiverpoolHome(String url) throws IOException {
-        liverpool.navigateToLiverpool(url);
+    @Given("^(?:I|The Client) goes to the home$")
+    public void iNavigateToLiverpoolHome() throws IOException {
+        liverpool.navigateToLiverpool();
     }
 
     @When("^(?:I|The Client) write (.+) in the (.+)$")

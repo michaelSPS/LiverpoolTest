@@ -4,14 +4,12 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
-import java.util.Properties;
+
 
 public class LiverpoolPage extends BasePage {
 
@@ -20,8 +18,12 @@ public class LiverpoolPage extends BasePage {
         super(driver);
     }
 
-    public void navigateToLiverpool(String url) throws IOException {
-        navigateToWebPage(url);
+    public void navigateToLiverpool() throws IOException {
+        navigateToWebPage("home.url");
+    }
+
+    public void navigateToLogin() throws IOException {
+        navigateToWebPage("login.url");
     }
 
     public void typeEnterOnSearchBar() throws IOException {
@@ -111,51 +113,5 @@ public class LiverpoolPage extends BasePage {
         return productResults.size();
 
     }
-
-//    public void verifyPageTitle(String title) throws IOException {
-//        String actualTitle = driver.getTitle();
-//        Assert.assertEquals(actualTitle, title);
-//    }
-
-//    public String buildUrl(String url) throws IOException {
-//        FileReader fr = new FileReader("src/main/resources/configfiles/config.properties");
-//        Properties pr = new Properties();
-//        pr.load(fr);
-//        String baseUrl = pr.getProperty("url");
-//        String homeUrl = pr.getProperty(url);
-//        return baseUrl + homeUrl;
-//    }
-
-//    public void getProductPrice(String locator) throws IOException {
-//        String expectedPrice = configFileLoad(locator);
-//        WebElement actualPrice = driver.findElement(By.xpath(locator));
-//        Assert.assertEquals(actualPrice, expectedPrice);
-//
-//        actualPrice.getText();
-//    }
-
-//    public void validateUrl(String url) throws IOException, InterruptedException {
-//        Thread.sleep(1000);
-//        String expectedUrl = buildUrl(url);
-//        String actualUrl = driver.getCurrentUrl();
-//        Assert.assertEquals(actualUrl, expectedUrl);
-//    }
-//    public void verifyUrl(String url) throws IOException {
-//        String expectedUrl = configFileLoad(url);
-//        String actualUrl = driver.getCurrentUrl();
-//        Assert.assertEquals(actualUrl, expectedUrl);
-//    }
-//
-//    public void clickDropDownOption(String section, String locator) throws IOException {
-//        String xpathLink = locatorFileLoad(locator);
-//        String xpath = String.format(xpathLink, section);
-//        JavascriptExecutor js = (JavascriptExecutor) driver;
-//        WebElement dropDownMenu = driver.findElement(By.xpath(xpath));
-//        js.executeScript("arguments[0].style.display='block'; arguments[0].style.visibility='visible'; arguments[0].focus();", dropDownMenu);
-//        wait.until(ExpectedConditions.visibilityOf(dropDownMenu));
-//        wait.until(ExpectedConditions.elementToBeClickable(dropDownMenu)).click();
-//    }
-//
-
 
 }
