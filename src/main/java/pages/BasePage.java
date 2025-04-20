@@ -30,12 +30,14 @@ public class BasePage {
 
     @AfterClass
     public static void closeBrowser() {
-
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
     }
 
     public String configFileLoad(String data) throws IOException {
-        FileReader fr = new FileReader("/Users/mikeynadia/Documents/PROGRAMACION/UDEMY/IdeaProjects/LiverpoolApexTest/src/main/resources/configfiles/config.properties");
+        FileReader fr = new FileReader("/Users/mikeynadia/Documents/PROGRAMACION/UDEMY/IdeaProjects/LiverpoolApexTest/src/test/resources/configfiles/config.properties");
         Properties pr = new Properties();
         pr.load(fr);
         String element = pr.getProperty(data);
@@ -46,7 +48,7 @@ public class BasePage {
     }
 
     public String locatorFileLoad(String data) throws IOException {
-        FileReader fr = new FileReader("/Users/mikeynadia/Documents/PROGRAMACION/UDEMY/IdeaProjects/LiverpoolApexTest/src/main/resources/configfiles/locators.properties");
+        FileReader fr = new FileReader("/Users/mikeynadia/Documents/PROGRAMACION/UDEMY/IdeaProjects/LiverpoolApexTest/src/test/resources/configfiles/locators.properties");
         Properties pr = new Properties();
         pr.load(fr);
         String element = pr.getProperty(data);

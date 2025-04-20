@@ -2,7 +2,9 @@ package utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
+
+import static org.junit.Assert.assertEquals;
+
 
 public class ValidationUtils extends BaseUtils {
 
@@ -12,12 +14,13 @@ public class ValidationUtils extends BaseUtils {
 
     public void verifyPageTitle(String expected) {
         String actual = driver.getTitle();
-        Assert.assertEquals(actual, expected);
+        assertEquals(expected, actual);
+
     }
 
     public void verifyUrl(String expected) {
         String actual = driver.getCurrentUrl();
-        Assert.assertEquals(actual, expected);
+        assertEquals(expected, actual);
     }
 
     public void verifyPresenceOfElement(String xpath) {
