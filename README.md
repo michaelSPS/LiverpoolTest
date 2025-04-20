@@ -414,12 +414,33 @@ Muestra el pom.xml efectivo (incluyendo herencias y dependencyManagement).
       mvn -Dtest=NombreDeLaClaseDeTest test
 Ejecuta sólo una clase de test específica.
 
-11. 🛠️ Bonus: Ejecutar una clase main (con exec plugin)
+11. 🛠️ Ejecutar una clase main (con exec plugin)
       ```bash
       mvn exec:java -Dexec.mainClass="com.ejemplo.Main"
 Ejecuta una clase que tenga public static void main(String[] args) (requiere configurar el plugin exec).
 
+12. Y si quieres ver el árbol completo:
+
+      ```bash
+      mvn dependency:tree -Dverbose
+13. Si usas Allure, asegúrate de generar el informe con:
+
+      ```bash
+      mvn clean test
+      mvn allure:serve
+
 
 ---
 
 ---
+
+# OTRO COMANDOS
+
+1. Abre una terminal en la raíz de tu proyecto.
+      ```bash
+      tree -L 3 src
+Si te aparece algo como command not found, puedes instalar tree con:
+
+2. macOS (Homebrew):
+      ```bash
+      brew install tree
