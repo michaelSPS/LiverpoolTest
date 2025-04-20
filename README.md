@@ -397,4 +397,64 @@ Para ver el historial de commits (como un árbol), podés instalar un plugin o u
 ---
 
 ---
+#COMANDOS DE MVN
 
+1. 🧹 Limpiar el proyecto
+      ```bash
+      mvn clean
+Elimina los archivos generados (target/), dejándolo limpio para una nueva compilación.
+
+2. 🏗️ Compilar el código
+      ```bash
+      mvn compile
+Compila el código fuente del proyecto (src/main/java).
+
+ 3. ✅ Ejecutar pruebas
+      ```bash
+      mvn test
+Ejecuta las pruebas en src/test/java.
+
+4. 🚀 Empaquetar el proyecto
+      ```bash
+      mvn package
+Compila el código y lo empaqueta (por ejemplo, en un .jar o .war, según el tipo de proyecto).
+
+5. 🔧 Instalar en el repositorio local
+      ```bash
+      mvn install
+Instala el .jar o .war generado en tu repositorio local (~/.m2/repository) para que otros proyectos puedan usarlo.
+
+6. 🔄 Actualizar dependencias forzadamente
+      ```bash
+      mvn clean install -U
+Fuerza a Maven a actualizar todas las dependencias (-U = update snapshots/releases).
+
+7. 📦 Descargar dependencias
+      ```bash
+      mvn dependency:resolve
+Fuerza la descarga de todas las dependencias del proyecto sin compilar ni testear.
+
+8. 📄 Generar el árbol de dependencias
+      ```bash
+      mvn dependency:tree
+Muestra todas las dependencias y sus versiones en forma de árbol. Útil para ver conflictos.
+
+9. 🔍 Ver información del proyecto
+      ```bash
+      mvn help:effective-pom
+Muestra el pom.xml efectivo (incluyendo herencias y dependencyManagement).
+
+10. 🧪 Ejecutar una clase específica con pruebas
+      ```bash
+      mvn -Dtest=NombreDeLaClaseDeTest test
+Ejecuta sólo una clase de test específica.
+
+11. 🛠️ Bonus: Ejecutar una clase main (con exec plugin)
+      ```bash
+      mvn exec:java -Dexec.mainClass="com.ejemplo.Main"
+Ejecuta una clase que tenga public static void main(String[] args) (requiere configurar el plugin exec).
+
+
+---
+
+---
