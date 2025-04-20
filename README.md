@@ -1,3 +1,107 @@
+# 🧪 Proyecto de Automatización E2E: LiverpoolApexTest
+
+1. ## 📋 Descripción general
+
+Este proyecto automatiza pruebas de extremo a extremo (E2E) sobre el sitio web de **Liverpool**, simulando interacciones de un usuario real como búsqueda de productos, aplicación de filtros, y validación del carrito de compras. Todo está desarrollado en **Java**, utilizando herramientas modernas como **Selenium**, **Cucumber**, **JUnit** y **Allure**.
+
+---
+
+2. ## 🧰 Tecnologías y herramientas utilizadas
+
+| Herramienta             | Rol                                                                 |
+|-------------------------|----------------------------------------------------------------------|
+| **Java 17**             | Lenguaje base del proyecto                                           |
+| **Maven**               | Gestor de dependencias y ejecución de pruebas                       |
+| **Selenium WebDriver**  | Interacción con el navegador (Chrome)                               |
+| **Cucumber**            | Automatización basada en BDD (Behavior Driven Development)          |
+| **JUnit**               | Ejecutor de pruebas                                                  |
+| **Allure**              | Generador de reportes detallados y visuales                         |
+| **IntelliJ IDEA**       | IDE usado para desarrollo y debugging                               |
+
+---
+
+3. ## 🧬 Estructura del proyecto
+
+      ```bash
+      LiverpoolApexTest/
+      ├── src/
+      │   ├── main/
+      │   └── test/
+      │       ├── java/
+      │       │   ├── runner/         # Clase TestRunner con JUnit + Cucumber
+      │       │   └── steps/          # Clases de definición de pasos
+      │       ├── resources/
+      │       │   ├── features/       # Archivos .feature de Cucumber
+      │       │   ├── configfiles/    # config.properties y locators.properties
+      │       │   └── allure.properties # Configuración para reportes Allure
+      ├── pom.xml                     # Configuración de Maven
+
+---
+
+4. ## 🔧 ¿Qué hace cada tecnología?
+
+### 🔹 Selenium WebDriver
+Simula un navegador real (Chrome) y realiza clics, scrolls, inputs de texto, selección de filtros y validación de elementos en pantalla.
+
+### 🔹 Cucumber
+Define escenarios en lenguaje natural (`Gherkin`) para facilitar el entendimiento del comportamiento esperado.  
+1. Ejemplo:
+
+      ```gherkin
+      Scenario: El usuario agrega una PS5 al carrito
+        Given The Client navigate to home-page
+        When The Client write playstation in the searchbar
+        Then The Client must be able to see the playstation 5 on the shopping cart
+
+### 🔹 JUnit
+Se utiliza junto con Cucumber para ejecutar los tests desde la clase TestRunner.
+
+### 🔹 Allure
+Genera reportes visuales a partir de los resultados de pruebas, incluyendo pasos, duración, estatus e información relevante.
+
+--- 
+
+5. ## 🛠️ Problemas enfrentados y soluciones
+
+Problema	Solución aplicada
+❌ target/allure-results no se generaba	Se agregó el adaptador de Allure en pom.xml y se creó el archivo allure.properties
+❌ mvn allure:serve no mostraba reporte	Se ejecutaron correctamente los tests y luego se generó el reporte
+❌ Advertencia de Selenium CDP (versión no compatible)	Se ignoró por el momento (no afecta funcionalidad); se recomienda actualizar
+
+---
+
+6. ## 🚀 ¿Cómo ejecutar el proyecto?
+1. Clonar el repositorio
+      ```bash
+      git clone https://github.com/tuusuario/LiverpoolApexTest.git
+      cd LiverpoolApexTest
+      
+2. Ejecutar pruebas
+      ```bash
+      mvn clean test
+3. Generar reporte Allure
+      ```bash
+      mvn allure:serve
+      
+4. El reporte se abrirá automáticamente en el navegador por http://localhost:port.
+
+--- 
+
+7. ## 📈 Resultado final
+El proyecto corre exitosamente 2 escenarios complejos que incluyen búsqueda de productos, aplicación de filtros y validación del carrito de compras. Se generan reportes detallados con Allure que permiten visualizar claramente el paso a paso de la ejecución.
+
+---
+
+8. ## 🧠 Autor
+Proyecto realizado por: Michael Perez
+🎓 Curso basado en práctica profesional automatizada
+💻 Automatización avanzada con Selenium, Cucumber y Allure
+
+
+---
+--- 
+
+
 # LiverpoolTest
 
 # 🧬 Flujo de Trabajo con Git (Git Flow Simplificado)
