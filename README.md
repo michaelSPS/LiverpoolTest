@@ -16,31 +16,26 @@ Este repositorio sigue un flujo de trabajo sencillo pero profesional para evitar
 ## 🌿 Crear una nueva funcionalidad
 
 1. Cambiar a la rama `develop`:
-
    ```bash
    git checkout develop
    git pull origin develop
    
 2. Crear tu rama de funcionalidad:
-  
     ```bash
     git checkout -b feature/nombre-de-la-funcion
     
 3. Hacer cambios, guardar con:
-
     ```bash
     git add .
     git commit -m "Agrega nueva funcionalidad"
     
 3. Unirla a develop cuando esté lista:
-
     ```bash
     git checkout develop
     git merge feature/nombre-de-la-funcion
     git push origin develop
     
 4. (Opcional) Borrar la rama:
-
     ```bash
     git branch -d feature/nombre-de-la-funcion
     git push origin --delete feature/nombre-de-la-funcion
@@ -50,13 +45,11 @@ Este repositorio sigue un flujo de trabajo sencillo pero profesional para evitar
 ## 🚀 Subir a producción (pasar develop a main)
 
 1. Cambiar a main:
-
     ```bash
     git checkout main
     git pull origin main
     
 2. Unir los cambios de develop:
-    
     ```bash
     git merge develop
     git push origin main
@@ -66,7 +59,6 @@ Este repositorio sigue un flujo de trabajo sencillo pero profesional para evitar
 ## 🐞 Arreglos urgentes en producción (hotfix)
 
 1. Crear una rama desde main:
-
     ```bash
     git checkout main
     git pull origin main
@@ -75,7 +67,6 @@ Este repositorio sigue un flujo de trabajo sencillo pero profesional para evitar
 2. Arreglar el error y hacer commit.
 
 3. Unir el arreglo a main y develop:
-
     ```bash
     git checkout main
     git merge hotfix/fix-nombre
@@ -115,44 +106,37 @@ Este repositorio sigue un flujo de trabajo sencillo pero profesional para evitar
 
 # ESTRUCTURAR RAMAS
 
-## 🔧 Estructura de ramas recomendada
-1. 
+1. 🔧 Estructura de ramas recomendada
       ```bash
       main        ← Rama estable, solo se sube lo que ya está probado.
       develop     ← Rama de desarrollo general, base para nuevas funciones.
       feature/*   ← Ramas para cada funcionalidad nueva.
       hotfix/*    ← Ramas para arreglos rápidos a producción.
 
-## 🛠️ Configuración inicial (solo una vez)
-2. Estás en main, creas develop a partir de ahí:
-
+2. 🛠️ Configuración inicial (solo una vez)
+Estás en main, creas develop a partir de ahí:
       ```bash
       git checkout -b develop
       git push -u origin develop
-      
-      
 A partir de ahora, todo el desarrollo nuevo sale desde develop.
 
 ## 🚀 Agregar una nueva funcionalidad (feature)
 
 3. Cuando quieras trabajar en algo nuevo (por ejemplo, login):
-
       ```bash
       git checkout develop
       git pull origin develop  # Asegúrate de estar actualizado
       git checkout -b feature/login
-      
+   
 ## Haz tus cambios, commits, etc.
 
 4. Cuando termines:
-
       ```bash
       git checkout develop
       git merge feature/login
       git push origin develop
       
 5. Opcional: eliminar la rama local y remota de feature
-
       ```bash
       git branch -d feature/login
       git push origin --delete feature/login
@@ -160,7 +144,6 @@ A partir de ahora, todo el desarrollo nuevo sale desde develop.
 ## 🧪 Pasar a producción (main)
 
 6. Cuando tu develop ya tiene funcionalidades probadas y estables:
-
       ```bash
       git checkout main
       git pull origin main
@@ -170,21 +153,19 @@ A partir de ahora, todo el desarrollo nuevo sale desde develop.
 ## 🐞 ¿Algo se rompió en producción? Usa hotfix
 
 7. Si necesitas arreglar algo rápido en producción:
-         
+   
       ```bash
       git checkout main
       git pull origin main
       git checkout -b hotfix/fix-login
       
 8. Arreglas el bug, haces commit, y luego:
-
       ```bash
       git checkout main
       git merge hotfix/fix-login
       git push origin main
       
 9. Y también lo pasas a develop:
-
       ```bash
       git checkout develop
       git merge hotfix/fix-login
@@ -206,57 +187,49 @@ A partir de ahora, todo el desarrollo nuevo sale desde develop.
 
 # DESPUES DE CREAR LA FEATURE/LOGIN
 
-## 🔨 ¿Cómo seguir trabajando en feature/login?
-1. Hacé los cambios que quieras en tu proyecto (modificar archivos, agregar nuevas funciones, etc.).
-2. Una vez que termines algo que querés guardar:
+🔨 ¿Cómo seguir trabajando en feature/login?
 
+1. Hacé los cambios que quieras en tu proyecto (modificar archivos, agregar nuevas funciones, etc.).
+   
+3. Una vez que termines algo que querés guardar:
       ```bash
       git add .
-
 (o podés agregar archivos específicos con git add archivo.js)
 
 3. Después hacés un commit con un mensaje claro:
-
       ```bash
       git commit -m "Agrega formulario de login con validación"
 
 5. Y si querés subir tu rama con los cambios a GitHub:
-
       ```bash
       git push origin feature/login
       
+---      
 ## 🔄 ¿Cómo volver atrás sin romper nada?
 Depende de qué tanto avanzaste:
 
 1. ❌ Aún no hiciste commit y querés descartar cambios:
-
-
       ```bash
       git restore .
 
 2. 🔁 Ya hiciste commit pero no hiciste push:
-
       ```bash
       git reset --soft HEAD~1
       
 (o --hard si querés borrar los cambios también, pero cuidado, eso no se puede deshacer fácilmente).
 
 3. 🕐 Volver a como estaba develop:
-Si querés descartar todo lo que hiciste y volver a como estaba develop, podés hacer esto:
-
+Si querés descartar todo lo que hiciste y volver a como estaba develop, podés hacer esto
       ```bash
       git checkout develop
       git branch -D feature/login
 
 4. Y si necesitás crear la rama de nuevo:
-
       ```bash
       git checkout -b feature/login
 
 5. 💡 Tip Pro:
 Para ver el historial de commits (como un árbol), podés instalar un plugin o usar este comando:
-
-
       ```bash
       git log --oneline --graph --all --decorate
 
@@ -272,7 +245,7 @@ Para ver el historial de commits (como un árbol), podés instalar un plugin o u
       ```bash
       git pull origin <rama>
       
-### 💡 Traducción simple:
+💡 Traducción simple:
 - Descarga los cambios más recientes del repositorio remoto (GitHub) y los mezcla con tu copia local.
 
 2. ¿Qué pasa detrás?
@@ -297,34 +270,29 @@ Para ver el historial de commits (como un árbol), podés instalar un plugin o u
 
 # COMANDOS DE GIT
 
-## 🔧 Configuración inicial
-1. 
+1. 🔧 Configuración inicial
       ```bash
       git config --global user.name "Tu Nombre"
       git config --global user.email "tu@email.com"
 
-## 📦 Inicializar o clonar un repo
- 2.     
+2. 📦 Inicializar o clonar un repo     
       ```bash
       git init                      # Inicializa un nuevo repositorio
       git clone <url>              # Clona un repositorio remoto
 
-## 📄 Estado y cambios
-3. 
+3. 📄 Estado y cambios
       ```bash
       git status                   # Muestra los archivos modificados, staged, etc.
       git diff                     # Muestra los cambios no staged
       git diff --staged            # Muestra los cambios staged
 
-## ➕ Agregar y confirmar cambios
-4. 
+4. ➕ Agregar y confirmar cambios
       ```bash
       git add <archivo>            # Agrega archivo al staging area
       git add .                    # Agrega todos los archivos modificados
       git commit -m "Mensaje"      # Confirma cambios
 
-## 🔁 Trabajo con ramas
-5. 
+5. 🔁 Trabajo con ramas
       ```bash
       git branch                   # Lista las ramas
       git branch <nombre>          # Crea una nueva rama
@@ -333,31 +301,27 @@ Para ver el historial de commits (como un árbol), podés instalar un plugin o u
       git merge <rama>             # Fusiona una rama en la actual
       git branch -d <rama>         # Borra una rama local
 
-## ⬆️⬇️ Sincronización con repositorio remoto
-6. 
+6.  ⬆️⬇️ Sincronización con repositorio remoto
       ```bash
       git remote -v                # Muestra los repos remotos configurados
       git push origin <rama>       # Sube cambios al remoto
       git pull origin <rama>       # Baja cambios y los fusiona
       git fetch                    # Trae cambios del remoto pero no los fusiona
 
-## 🕵️‍♂️ Historial y revisión
-7. 
+7. 🕵️‍♂️ Historial y revisión
       ```bash
       git log                      # Muestra el historial de commits
       git log --oneline            # Historial compacto
       git show <commit>            # Muestra detalles de un commit
 
-## 🔄 Revertir o rehacer cosas
-8. 
+8. 🔄 Revertir o rehacer cosas
       ```bash
       git checkout -- <archivo>    # Revierte cambios en un archivo (no commiteados)
       git reset HEAD <archivo>     # Saca un archivo del staging
       git reset --soft HEAD~1      # Revierte el último commit (deja cambios)
       git revert <commit>          # Crea un commit que deshace uno anterior
 
-## 💣 Borrar con cuidado
-9. 
+9. 💣 Borrar con cuidado
       ```bash
       git rm <archivo>             # Elimina un archivo del repo y del disco
       git clean -fd                # Elimina archivos/directorios no versionados
@@ -369,7 +333,7 @@ Para ver el historial de commits (como un árbol), podés instalar un plugin o u
 
 # FORZAR PUSH
 
-## 🧨 Opción 1: Forzar el push (sobrescribes el remoto)
+🧨 Opción 1: Forzar el push (sobrescribes el remoto)
 1. ⚠️ Esta opción elimina los cambios que están en el remoto (los sobrescribe con los tuyos). Solo hazlo si estás seguro de que tus cambios locales son los correctos y quieres ignorar lo que hay en remoto.
 
       ```bash
@@ -377,7 +341,7 @@ Para ver el historial de commits (como un árbol), podés instalar un plugin o u
       
 ✅ Esta opción es rápida y te deja el repositorio remoto exactamente como está tu versión local.
 
-## 🛠️ Opción 2: Hacer un merge y conservar todo
+🛠️ Opción 2: Hacer un merge y conservar todo
 2. Si quieres conservar tus cambios locales pero también integrar lo del remoto, entonces puedes hacer un merge en vez de rebase:
 
       ```bash
@@ -388,7 +352,7 @@ Para ver el historial de commits (como un árbol), podés instalar un plugin o u
       ```bash
       git push origin feature/login
       
-## 🔐 Recomendación
+🔐 Recomendación
 - Si estás trabajando tú solo en el branch, puedes usar --force sin miedo.
 
 - Si más personas están trabajando en el branch, mejor haz el merge y resuelve cualquier conflicto.
@@ -397,7 +361,8 @@ Para ver el historial de commits (como un árbol), podés instalar un plugin o u
 ---
 
 ---
-#COMANDOS DE MVN
+
+# COMANDOS DE MVN
 
 1. 🧹 Limpiar el proyecto
       ```bash
