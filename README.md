@@ -543,6 +543,15 @@ Ejecuta una clase que tenga public static void main(String[] args) (requiere con
 1. Abre una terminal en la raíz de tu proyecto.
       ```bash
       tree -L 3 src
+      
+2. Abre la raíz con los archivos dentro.
+    ```bash
+    tree -L 4 -I 'target|.idea|*.class' src
+    
+-tree: muestra la estructura del proyecto en forma de árbol.
+-L 4: profundidad de carpetas (podés aumentar el número si querés más niveles).
+-I 'target|.idea|*.class': ignora carpetas o archivos que no necesitamos ver (como el directorio target, .idea de IntelliJ o archivos .class).
+
 Si te aparece algo como command not found, puedes instalar tree con:
 
 2. macOS (Homebrew):
