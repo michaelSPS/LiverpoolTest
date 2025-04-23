@@ -1,4 +1,4 @@
-@Navigation
+@regression
 Feature: TC 01 Search for products on Liverpool Page
 
   Background:
@@ -11,7 +11,7 @@ Feature: TC 01 Search for products on Liverpool Page
     And The Client selects a console in the results listed
     And The Client selects a ps5 in the results
     And The Client clicks on button add to cart
-    And The Client clicks add warrentie
+    And The Client clicks add warranty
     And The Client goes to see the shopping-cart
     Then The Client must be able to see the playstation 5 on the shopping cart
 

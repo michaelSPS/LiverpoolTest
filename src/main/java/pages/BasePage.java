@@ -1,101 +1,78 @@
 package pages;
 
-import org.junit.AfterClass;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.ConfigManager;
+import utils.WaitUtils;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.Properties;
 
 public class BasePage {
 
-    public static WebDriver driver;
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-    static {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        driver = new ChromeDriver(chromeOptions);
-        driver.manage().window().maximize();
-    }
+    protected WebDriver driver;
+    protected WaitUtils waitUtils;
 
     public BasePage(WebDriver driver) {
-
-        BasePage.driver = driver;
-    }
-
-    @AfterClass
-    public static void closeBrowser() {
-        if (driver != null) {
-            driver.quit();
-            driver = null;
-        }
-    }
-
-    public String configFileLoad(String data) throws IOException {
-        FileReader fr = new FileReader("/Users/mikeynadia/Documents/PROGRAMACION/UDEMY/IdeaProjects/LiverpoolApexTest/src/test/resources/configfiles/config.properties");
-        Properties pr = new Properties();
-        pr.load(fr);
-        String element = pr.getProperty(data);
-        if (element == null) {
-            throw new IllegalArgumentException("❌ Locator key '" + data + "' not found in locators.properties");
-        }
-        return element;
-    }
-
-    public String locatorFileLoad(String data) throws IOException {
-        FileReader fr = new FileReader("/Users/mikeynadia/Documents/PROGRAMACION/UDEMY/IdeaProjects/LiverpoolApexTest/src/test/resources/configfiles/locators.properties");
-        Properties pr = new Properties();
-        pr.load(fr);
-        String element = pr.getProperty(data);
-        if (element == null) {
-            throw new IllegalArgumentException("❌ Locator key '" + data + "' not found in locators.properties");
-        }
-        return element;
+        this.driver = driver;
+        this.waitUtils = new WaitUtils(driver, 10);
     }
 
     public void navigateToWebPage(String configKey) throws IOException {
-        String url = configFileLoad(configKey);
+        String url = ConfigManager.getConfig(configKey);
         driver.get(url);
     }
 
     public WebElement Find(String locator) {
-        return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        By by;
+        if (locator.startsWith("//") || locator.startsWith("(//")) {
+            by = By.xpath(locator);
+        } else {
+            by = By.id(locator);
+        }
+
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(by));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+
+        return element;
     }
 
     public void clickElement(String locator) throws IOException {
-        String element = locatorFileLoad(locator);
-        Find(element).click();
+        String element = ConfigManager.getLocator(locator);
+        WebElement webElement = Find(element);
 
-        System.out.println("DEBUG: Haciendo click en el elmento");
+        try {
+            webElement.click();
+            System.out.println("DEBUG: Click normal ejecutado");
+        } catch (ElementClickInterceptedException e) {
+            System.out.println("DEBUG: Click interceptado, usando click con JS");
+            ((JavascriptExecutor)driver).executeScript("arguments[0].click();", webElement);
+        }
     }
 
-
     public void write(String keysToSend, String locator) throws IOException {
-        String element = locatorFileLoad(locator);
+        String element = ConfigManager.getLocator(locator);
         scrollToElement(element);
-        String text = configFileLoad(keysToSend);
+        String text = ConfigManager.getConfig(keysToSend);
         Find(element).sendKeys(text);
     }
 
     public void writePlainText(String text, String locatorKey) throws IOException {
-        String xpath = locatorFileLoad(locatorKey);
+        String xpath = ConfigManager.getLocator(locatorKey);
         scrollToElement(xpath);
         Find(xpath).sendKeys(text);
     }
 
     public void scrollToElementByKey(String locator) throws IOException {
-        String xpath = locatorFileLoad(locator);
+        String xpath = ConfigManager.getLocator(locator);
         scrollToElement(xpath);
     }
 
     public void scrollToElement(String xpath) {
         JavascriptExecutor j = (JavascriptExecutor) driver;
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+        WebElement element = driver.findElement(By.xpath(xpath));
         j.executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
@@ -112,6 +89,13 @@ public class BasePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
+    public void clickUsingJS(String xpath) {
+        WebElement element = driver.findElement(By.xpath(xpath));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView({block: 'center'});", element);
+        sleep(500); // si prefieres algo más robusto, puedes usar waitUtils en su lugar
+        js.executeScript("arguments[0].click();", element);
+    }
 
     public void sleep(int milliseconds) {
         try {
@@ -121,31 +105,5 @@ public class BasePage {
         }
     }
 
-    public void verifyElementIsVisible(String locator) throws IOException {
-        String element = locatorFileLoad(locator);
-        System.out.println("DEBUG: Buscando elemento con XPath: " + element);
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(element)));
-    }
-
-    public void waitForPageToReload() {
-        try {
-            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".loading-spinner")));
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".product-item")));
-        } catch (TimeoutException e) {
-            System.out.println("DEBUG: Timeout al esperar la carga de la página");
-        }
-    }
-
 }
-
-
-
-
-
-
-
-
-
-
-
 
