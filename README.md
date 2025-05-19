@@ -557,3 +557,33 @@ Si te aparece algo como command not found, puedes instalar tree con:
 2. macOS (Homebrew):
       ```bash
       brew install tree
+
+---
+
+JENKINS
+
+1. Correr Jenkins en la consola
+      ```bash
+      java -jar jenkins.war
+
+
+---
+
+# DOCKER. Pasos claros para correr tu contenedor:
+
+1. Asegúrate de estar en la raíz del proyecto (donde está tu Dockerfile y pom.xml):
+      ```bash
+      cd /Users/mikeynadia/Documents/PROGRAMACION/PROYECTS/AdobeProyect
+2. Construye la imagen Docker (si no la has hecho o cambiaste el Dockerfile):
+      ```bash
+      docker build -t adobe-automation:latest .
+(Esto crea una imagen llamada adobe-automation)
+
+3. Corre el contenedor para ejecutar tus pruebas:
+      ```bash
+      docker run --rm adobe-automation:latest
+Aquí Docker levantará un contenedor usando tu imagen, correrá tus pruebas automatizadas y te mostrará los resultados en la terminal.
+
+El contenedor se eliminará automáticamente al terminar (--rm).
+
+
