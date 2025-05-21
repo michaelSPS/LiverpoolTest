@@ -586,4 +586,13 @@ Aquí Docker levantará un contenedor usando tu imagen, correrá tus pruebas aut
 
 El contenedor se eliminará automáticamente al terminar (--rm).
 
+4. Este comando te permite usar tu proyecto exactamente como está (con .git incluido) dentro del contenedor:
+
+      ```bash
+      docker run --rm \
+        --shm-size=1g \
+        -v $(pwd):/app \
+        -w /app \
+        adobe-automation:latest
+
 
