@@ -547,6 +547,11 @@ Ejecuta una clase que tenga public static void main(String[] args) (requiere con
 2. Abre la raíz con los archivos dentro.
     ```bash
     tree -L 4 -I 'target|.idea|*.class' src
+
+3. Todos los archivos dentro de las carpetas.
+    ```bash
+    tree -I 'target|.idea|*.class' src
+
     
 -tree: muestra la estructura del proyecto en forma de árbol.
 -L 4: profundidad de carpetas (podés aumentar el número si querés más niveles).
