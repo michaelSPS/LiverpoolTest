@@ -310,17 +310,17 @@ A partir de ahora, todo el desarrollo nuevo sale desde develop.
       
 6. Despues para fucionarlos hacer merge de feature/login a develop
       ```bash
-      git checkout develop ----- a) Cambia a la rama develop.
-      git pull origin develop ----- b) Asegúrate de que develop esté actualizado.
-      git merge feature/login ----- c) Haz el merge desde feature/login.
-      git push origin develop ---- d) Si todo sale bien y no hay conflictos, sube los cambios a remoto.
+      git checkout develop          # cambia a la rama develop.
+      git pull origin develop       # asegúrate de que develop esté actualizado.
+      git merge feature/login       # haz el merge desde feature/login.
+      git push origin develop       # si todo sale bien y no hay conflictos, sube los cambios a remoto.
 
 7. Despues para hacer merge de develop a main
       ```bash
-      git checkout main ---- a) Cambia a la rama main.
-      git pull origin main ----- b) Asegúrate de que main esté actualizada.
-      git merge develop ----- c) Haz el merge desde develop.
-      git push origin main ----- d) Sube los cambios a remoto.
+      git checkout main       # cambia a la rama main.
+      git pull origin main    # asegúrate de que main esté actualizada.
+      git merge develop       # haz el merge desde develop.
+      git push origin main    # sube los cambios a remoto.
 
 8. Si hay conflictos, Git te lo dirá y tendrás que resolverlos manualmente en los archivos afectados, luego hacer git add <archivo> y terminar con git commit.
 Después de que merges a main, puedes borrar tu rama de feature si ya no la necesitas:
