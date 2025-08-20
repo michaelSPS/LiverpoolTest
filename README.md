@@ -337,6 +337,15 @@ Para ver el historial de commits (como un árbol), podés instalar un plugin o u
       ```bash
       git log --oneline --graph --all --decorate
 
+6. Nada funciono :
+   Primeo busca el commit en el que estabas:
+      ```bash
+      git log
+7. Para identificar el ultimo commit que quieres llegar.
+      ```bash
+      git reset --hard a32e3d75d9ee7747fe75079324a96ab5dc4d3315 (Ejemplo)
+      
+Esto te lleva exactamente al punto donde estabas.
 
 ---
 
