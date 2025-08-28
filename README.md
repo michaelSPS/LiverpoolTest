@@ -604,24 +604,65 @@ JENKINS
 
 ---
 
-# DOCKER. Pasos claros para correr tu contenedor:
+# DOCKER. Pasos claros para correr tu contenedor.
+
+Comandos completos para limpiar contenedores e imágenes viejas y luego reconstruir tu imagen desde cero sin usar caché:
 
 1. Asegúrate de estar en la raíz del proyecto (donde está tu Dockerfile y pom.xml):
       ```bash
       cd /Users/mikeynadia/Documents/PROGRAMACION/PROYECTS/AdobeProyect
-2. Construye la imagen Docker (si no la has hecho o cambiaste el Dockerfile):
+
+2. Eliminar todos los contenedores detenidos
+      ```bash
+      docker container prune -f
+
+Elimina todos los contenedores detenidos. No afecta a los que están corriendo.
+
+3. Eliminar todas las imágenes que no están en uso
+      ```bash
+      docker image prune -a -f
+
+Elimina todas las imágenes no referenciadas por contenedores activos.
+
+Aqui tenemos dos opciones: con cache y sin cache. 
+4. Construye la imagen Docker (si no la has hecho o cambiaste el Dockerfile):
       ```bash
       docker build -t adobe-automation:latest .
 (Esto crea una imagen llamada adobe-automation)
 
-3. Corre el contenedor para ejecutar tus pruebas:
+Con --cache: Docker reutiliza pasos anteriores del Dockerfile si detecta que no han cambiado (por ejemplo: instalación de dependencias, copia de archivos, etc.).
+
+Ventajas:
+🔄 Mucho más rápido.
+🧠 Ideal si no hiciste cambios grandes en el proyecto.
+
+Desventajas:
+Puede usar versiones viejas de archivos si hubo cambios que no detecta bien (por ejemplo, archivos .jar, .class, caché de Maven, etc.).
+
+5. Construir la imagen SIN caché
+      ```bash
+      docker build --no-cache -t adobe-automation:latest .
+
+Docker ignora todo el caché y ejecuta cada instrucción del Dockerfile desde cero.
+
+Ventajas:
+🧼 Te asegura una construcción completamente limpia.
+🚫 Evita errores raros por archivos antiguos o desactualizados.
+
+Desventajas:
+🕒 Es más lento porque vuelve a descargar e instalar todo.
+
+
+Esto fuerza a Docker a construir desde cero, sin usar nada del caché anterior.
+
+6. Ejecutar el contenedor
       ```bash
       docker run --rm adobe-automation:latest
-Aquí Docker levantará un contenedor usando tu imagen, correrá tus pruebas automatizadas y te mostrará los resultados en la terminal.
 
-El contenedor se eliminará automáticamente al terminar (--rm).
 
-4. Este comando te permite usar tu proyecto exactamente como está (con .git incluido) dentro del contenedor:
+El contenedor se elimina automáticamente al finalizar (--rm).
+
+7. Este comando te permite usar tu proyecto exactamente como está (con .git incluido) dentro del contenedor:
 
       ```bash
       docker run --rm \
@@ -629,5 +670,3 @@ El contenedor se eliminará automáticamente al terminar (--rm).
         -v $(pwd):/app \
         -w /app \
         adobe-automation:latest
-
-
