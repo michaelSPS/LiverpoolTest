@@ -632,11 +632,10 @@ Aqui tenemos dos opciones: con cache y sin cache.
 
 Con --cache: Docker reutiliza pasos anteriores del Dockerfile si detecta que no han cambiado (por ejemplo: instalación de dependencias, copia de archivos, etc.).
 
-Ventajas:
+### Ventajas:
 🔄 Mucho más rápido.
 🧠 Ideal si no hiciste cambios grandes en el proyecto.
-
-Desventajas:
+### Desventajas:
 Puede usar versiones viejas de archivos si hubo cambios que no detecta bien (por ejemplo, archivos .jar, .class, caché de Maven, etc.).
 
 5. Construir la imagen SIN caché
@@ -645,11 +644,10 @@ Puede usar versiones viejas de archivos si hubo cambios que no detecta bien (por
 
 Docker ignora todo el caché y ejecuta cada instrucción del Dockerfile desde cero.
 
-Ventajas:
+### Ventajas:
 🧼 Te asegura una construcción completamente limpia.
 🚫 Evita errores raros por archivos antiguos o desactualizados.
-
-Desventajas:
+### Desventajas:
 🕒 Es más lento porque vuelve a descargar e instalar todo.
 
 
@@ -670,3 +668,16 @@ El contenedor se elimina automáticamente al finalizar (--rm).
         -v $(pwd):/app \
         -w /app \
         adobe-automation:latest
+
+Comandos útiles (por si los necesitas):
+8. Ver todas las imágenes locales
+    ```bash
+    docker images
+
+9. Eliminar imagen específica (por nombre)
+      ```bash
+      docker rmi adobe-automation:latest
+
+10. Forzar eliminación (si está en uso)
+      ```bash
+      docker rmi -f adobe-automation:latest
