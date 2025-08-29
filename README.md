@@ -595,7 +595,9 @@ Si te aparece algo como command not found, puedes instalar tree con:
 
 ---
 
-JENKINS
+---
+
+# JENKINS
 
 1. Correr Jenkins en la consola
       ```bash
@@ -612,12 +614,14 @@ Comandos completos para limpiar contenedores e imágenes viejas y luego reconstr
       ```bash
       cd /Users/mikeynadia/Documents/PROGRAMACION/PROYECTS/AdobeProyect
 
+---
 2. Eliminar todos los contenedores detenidos
       ```bash
       docker container prune -f
 
 Elimina todos los contenedores detenidos. No afecta a los que están corriendo.
 
+---
 3. Eliminar todas las imágenes que no están en uso
       ```bash
       docker image prune -a -f
@@ -625,6 +629,9 @@ Elimina todos los contenedores detenidos. No afecta a los que están corriendo.
 Elimina todas las imágenes no referenciadas por contenedores activos.
 
 Aqui tenemos dos opciones: con cache y sin cache. 
+
+
+---
 4. Construye la imagen Docker (si no la has hecho o cambiaste el Dockerfile):
       ```bash
       docker build -t adobe-automation:latest .
@@ -638,6 +645,8 @@ Con --cache: Docker reutiliza pasos anteriores del Dockerfile si detecta que no 
 ### Desventajas:
 Puede usar versiones viejas de archivos si hubo cambios que no detecta bien (por ejemplo, archivos .jar, .class, caché de Maven, etc.).
 
+
+---
 5. Construir la imagen SIN caché
       ```bash
       docker build --no-cache -t adobe-automation:latest .
@@ -653,6 +662,7 @@ Docker ignora todo el caché y ejecuta cada instrucción del Dockerfile desde ce
 
 Esto fuerza a Docker a construir desde cero, sin usar nada del caché anterior.
 
+---
 6. Ejecutar el contenedor
       ```bash
       docker run --rm adobe-automation:latest
@@ -660,6 +670,7 @@ Esto fuerza a Docker a construir desde cero, sin usar nada del caché anterior.
 
 El contenedor se elimina automáticamente al finalizar (--rm).
 
+---
 7. Este comando te permite usar tu proyecto exactamente como está (con .git incluido) dentro del contenedor:
 
       ```bash
@@ -670,14 +681,18 @@ El contenedor se elimina automáticamente al finalizar (--rm).
         adobe-automation:latest
 
 Comandos útiles (por si los necesitas):
+
+---
 8. Ver todas las imágenes locales
     ```bash
     docker images
 
+---
 9. Eliminar imagen específica (por nombre)
       ```bash
       docker rmi adobe-automation:latest
 
+---
 10. Forzar eliminación (si está en uso)
       ```bash
       docker rmi -f adobe-automation:latest
