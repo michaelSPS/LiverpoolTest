@@ -568,7 +568,7 @@ Ejecuta una clase que tenga public static void main(String[] args) (requiere con
 
 ---
 
-# OTRO COMANDOS
+# RAIZ DEL PROYECTO
 
 1. Abre una terminal en la raíz de tu proyecto.
       ```bash
